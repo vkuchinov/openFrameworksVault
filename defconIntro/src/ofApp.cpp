@@ -4,7 +4,7 @@
 void ofApp::setup(){
 
     //window settings
-    ofToggleFullscreen();
+    //ofToggleFullscreen();
     ofSetVerticalSync(true);
     
     //video footage inits
@@ -43,10 +43,10 @@ void ofApp::setup(){
     }
     
     liveCam.setDeviceID(cameraID);
-    liveCam.setDesiredFrameRate(60);
-    liveCam.initGrabber(1280, 720);
+    liveCam.setDesiredFrameRate(30);
+    liveCam.initGrabber(640, 360);
     
-    camInverted.allocate(1280, 720, OF_PIXELS_RGB);
+    camInverted.allocate(640, 360, OF_PIXELS_RGB);
     camTexture.allocate(camInverted);
     
 }
@@ -55,7 +55,7 @@ void ofApp::setup(){
 void ofApp::update(){
     
     //footage.update();
-    liveCam.update();
+    if(currentEvent == 1 || currentEvent == 2) { liveCam.update(); }
     
     
     if(liveCam.isFrameNew()){
@@ -69,8 +69,8 @@ void ofApp::update(){
     //getPosition <> getCurrentFrame
     //getDuration <> getDurationInSeconds
 
-    float pos = omxPlayer.getCurrentFrame() / omxPlayer.getTotalNumFrames();
-    mills = pos*omxPlayer.getDurationInSeconds()*1E3;
+    mills = ofMap(omxPlayer.getCurrentFrame(), 0, omxPlayer.getTotalNumFrames(), 0, omxPlayer.getDurationInSeconds()*1E3);
+
     for(int e = currentEvent + 1; e < 4; e++){ if(mills > events[e].time && currentEvent != 3) currentEvent = e; }
 }
 
@@ -84,11 +84,9 @@ void ofApp::draw(){
 
     omxPlayer.draw(0, 0, ofGetWidth(), ofGetHeight());
 
-    //footage.draw(0, 0);
-    liveCam.draw(events[currentEvent].x, events[currentEvent].y, events[currentEvent].camWidth, events[currentEvent].camHeight);
-    
-    //string s = ofToString(currentEvent) + " " + ofToString(mills) + " " + ofToString(events[1].time);
-    //cout << s << endl;
+    if(currentEvent == 1 || currentEvent == 2) {  liveCam.draw(events[currentEvent].x, events[currentEvent].y, events[currentEvent].camWidth, events[currentEvent].camHeight); }
+
+    //ofDrawBitmapString("fps:" + ofToString(ofGetFrameRate()) + " mills:" + ofToString(mills), 48, 48);
 
 }
 

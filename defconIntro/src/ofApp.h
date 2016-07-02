@@ -35,6 +35,7 @@ class ofApp : public ofBaseApp{
     
         //milliseconds
         int mills = 0;
+	float pos;
 
         //time in milliseconds
         struct Milestone { int id; int time; bool cam; int x; int y; int camWidth; int camHeight; };
