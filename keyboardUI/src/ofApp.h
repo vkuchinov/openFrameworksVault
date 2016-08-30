@@ -20,7 +20,11 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+        ofImage background;
+    
         ofSoundPlayer keyClick;
+    
+        ofTrueTypeFont tf;
     
         string formatText();
         int getNumOfWords();
@@ -28,8 +32,8 @@ class ofApp : public ofBaseApp{
         string carriage = "|";
         int carriageVisible = -1;
     
-        int maxLineLength = 64;
-        string text = "THE FIVE BOXING WIZARDS JUMP QUICKLY";
+        int maxLineLength = 32;
+        string text = "";
     
         struct customKey{
             
@@ -39,10 +43,10 @@ class ofApp : public ofBaseApp{
             
         };
     
-        customKey map [26] = {{0, 'q', "A"}, {1, 'w', "B"}, {2, 'e', "C"}, {3, 'r', "D"}, {4, 't', "E"}, {5, 'y', "F"},
-                              {6, 'u', "G"}, {7, 'i', "H"}, {8, 'o', "I"}, {9, 'p', "J"}, {10, 'a', "K"}, {11, 's', "L"},
-                              {12, 'd', "M"}, {13, 'f', "N"}, {14, 'g', "O"}, {15, 'h', "P"}, {16, 'j', "Q"}, {17, 'k', "R"},
-                              {18, 'l', "S"}, {19, 'z', "T"}, {20, 'x', "U"}, {21, 'c', "V"}, {22, 'v', "W"}, {23, 'b', "X"},
-                              {24, 'n', "Y"}, {25, 'm', "Z"}};
+        //customKey map [26] = {{0, 'q', "A"}, {1, 'w', "B"}, {2, 'e', "C"}, {3, 'r', "D"}, {4, 't', "E"}, {5, 'y', "F"},
+        //                      {6, 'u', "G"}, {7, 'i', "H"}, {8, 'o', "I"}, {9, 'p', "J"}, {10, 'a', "K"}, {11, 's', "L"},
+        //                      {12, 'd', "M"}, {13, 'f', "N"}, {14, 'g', "O"}, {15, 'h', "P"}, {16, 'j', "Q"}, {17, 'k', "R"},
+        //                      {18, 'l', "S"}, {19, 'z', "T"}, {20, 'x', "U"}, {21, 'c', "V"}, {22, 'v', "W"}, {23, 'b', "X"},
+        //                      {24, 'n', "Y"}, {25, 'm', "Z"}};
     
 };

@@ -3,8 +3,14 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    tf.load("FiraMono.ttf", 20, true, true, true);
+    tf.setLineHeight(28.0);
+    tf.setLetterSpacing(1.1);
+    
     keyClick.load("typewriterClick.mp3");
     keyClick.setMultiPlay(true);
+    
+    background.load("background.jpg");
 
 }
 
@@ -16,16 +22,19 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    ofSetBackgroundColor(225, 220, 215);
+    background.draw(0, 0);
+    ofSetColor(245, 235, 235);
+    ofDrawRectangle(360, 180, 1200, 720);
     
     ofSetColor(0);
     if(ofGetFrameNum() % 30 == 0) { carriageVisible *= -1; }
-    if(carriageVisible == 1) { ofDrawBitmapString(formatText() + carriage, 64, 64); } else { ofDrawBitmapString(formatText(), 64, 64); }
+    if(carriageVisible == 1) { tf.drawString(formatText() + carriage, 424, 244); } else { tf.drawString(formatText(), 424, 244); }
     
     ofSetColor(255);
     string data = "LENGTH: " + ofToString(text.length()) + " WORDS: " + ofToString(getNumOfWords());
 
-    ofDrawBitmapStringHighlight(data, 64, ofGetHeight() - 64);
+    ofSetColor(128, 128, 128);
+    tf.drawString(data, 424, 836);
 }
 
 string ofApp::formatText(){
@@ -67,11 +76,8 @@ void ofApp::keyPressed(int key){
         //upper case to lower
         if(key > 64 && key < 91) { key += 32; }
         
-        for(int c = 0; c < 26; c++){
-            
-            if(char(key) == map[c].key) { text += map[c].replacement; }
-            
-        }
+        text += char(key);
+
         
         keyClick.play();
         
